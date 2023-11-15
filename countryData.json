@@ -1,0 +1,84 @@
+{
+  "countries": [
+    {
+      "name": "Argentina",
+      "capital": "Buenos Aires"
+    },
+    {
+      "name": "Australia",
+      "capital": "Canberra"
+    },
+    {
+      "name": "Brazil",
+      "capital": "Brasília"
+    },
+    {
+      "name": "Canada",
+      "capital": "Ottawa"
+    },
+    {
+      "name": "China",
+      "capital": "Beijing"
+    },
+    {
+      "name": "France",
+      "capital": "Paris"
+    },
+    {
+      "name": "Germany",
+      "capital": "Berlin"
+    },
+    {
+      "name": "India",
+      "capital": "New Delhi"
+    },
+    {
+      "name": "Indonesia",
+      "capital": "Jakarta"
+    },
+    {
+      "name": "Italy",
+      "capital": "Rome"
+    },
+    {
+      "name": "Japan",
+      "capital": "Tokyo"
+    },
+    {
+      "name": "Mexico",
+      "capital": "Mexico City"
+    },
+    {
+      "name": "Netherlands",
+      "capital": "Amsterdam"
+    },
+    {
+      "name": "Nigeria",
+      "capital": "Abuja"
+    },
+    {
+      "name": "Russia",
+      "capital": "Moscow"
+    },
+    {
+      "name": "South Africa",
+      "capital": "Pretoria"
+    },
+    {
+      "name": "South Korea",
+      "capital": "Seoul"
+    },
+    {
+      "name": "Spain",
+      "capital": "Madrid"
+    },
+    {
+      "name": "United Kingdom",
+      "capital": "London"
+    },
+    {
+      "name": "United States",
+      "capital": "Washington, D.C."
+    }
+  ]
+}
