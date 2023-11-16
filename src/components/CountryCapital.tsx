@@ -10,6 +10,7 @@ function CountryCapitals({ countries, shuffeld }: CountryCapitalProps) {
   const [buttonStates, setButtonState] = useState(initialButtonState(shuffeld));
   const [clickedIndex, setClickedIndex] = useState([]);
   const [clickedValue, setClickedValues] = useState({ name: "", index: 0 });
+  const [errors, setErrors] = useState(0);
   const handleClick = (index: number, entry: string) => {
     if (clickState === "default") {
       buttonStates[index] = "blue";
@@ -21,8 +22,6 @@ function CountryCapitals({ countries, shuffeld }: CountryCapitalProps) {
     if (clickState === "blue") {
       setClickedIndex([...clickedIndex, index]);
       if (countries.has(entry) && countries.get(entry) === clickedValue.name) {
-        console.log(clickedValue);
-        console.log(countries.get(entry));
         shuffeld.splice(index, 1);
         shuffeld.splice(clickedValue.index, 1);
         buttonStates[index] = "default";
@@ -48,6 +47,7 @@ function CountryCapitals({ countries, shuffeld }: CountryCapitalProps) {
       } else {
         buttonStates[index] = "red";
         buttonStates[clickedValue.index] = "red";
+        setErrors(errors + 1);
         setButtonState(buttonStates);
         setClickedIndex([...clickedIndex, index]);
         setClickState("red");
@@ -80,9 +80,14 @@ function CountryCapitals({ countries, shuffeld }: CountryCapitalProps) {
     </button>
   ));
   return (
-    <div className="w-full h-full shadow-black grid-cols-5  grid items-center justify-items-center  ">
-      {buttons}
-    </div>
+    <>
+      <div className="w-full h-14 flex justify-center flex-row ">
+        <h1 className="font-bold text-2xl tracking-wide">Country Quiz</h1>
+      </div>
+      <div className="w-full h-full shadow-black grid-cols-5  grid items-center justify-items-center  ">
+        {buttons}
+      </div>
+    </>
   );
 }
 function initialButtonState(countries: String[]) {
