@@ -2,83 +2,119 @@
   "countries": [
     {
       "name": "Argentina",
-      "capital": "Buenos Aires"
+      "capital": "Buenos Aires",
+      "flag": "./public/argentina.svg"
     },
     {
       "name": "Australia",
-      "capital": "Canberra"
+      "capital": "Canberra",
+      "flag": "./public/australia.svg"
     },
     {
       "name": "Brazil",
-      "capital": "Brasília"
+      "capital": "Brasília",
+      "flag": "./public/brazil.svg"
     },
     {
       "name": "Canada",
-      "capital": "Ottawa"
+      "capital": "Ottawa",
+      "flag": "./public/canada.svg"
     },
     {
       "name": "China",
-      "capital": "Beijing"
+      "capital": "Beijing",
+      "flag": "./public/china.svg"
     },
     {
       "name": "France",
-      "capital": "Paris"
+      "capital": "Paris",
+      "flag": "./public/france.svg"
     },
     {
       "name": "Germany",
-      "capital": "Berlin"
+      "capital": "Berlin",
+      "flag": "./public/germany.svg"
     },
     {
       "name": "India",
-      "capital": "New Delhi"
+      "capital": "New Delhi",
+      "flag": "./public/india.svg"
     },
     {
       "name": "Indonesia",
-      "capital": "Jakarta"
+      "capital": "Jakarta",
+      "flag": "./public/indonesia.svg"
     },
     {
       "name": "Italy",
-      "capital": "Rome"
+      "capital": "Rome",
+      "flag": "./public/italy.svg"
     },
     {
       "name": "Japan",
-      "capital": "Tokyo"
+      "capital": "Tokyo",
+      "flag": "./public/japan.svg"
     },
     {
       "name": "Mexico",
-      "capital": "Mexico City"
+      "capital": "Mexico City",
+      "flag": "./public/mexico.svg"
     },
     {
       "name": "Netherlands",
-      "capital": "Amsterdam"
+      "capital": "Amsterdam",
+      "flag": "./public/netherlands.svg"
     },
     {
       "name": "Nigeria",
-      "capital": "Abuja"
+      "capital": "Abuja",
+      "flag": "./public/nigeria.svg"
     },
     {
       "name": "Russia",
-      "capital": "Moscow"
+      "capital": "Moscow",
+      "flag": "./public/russia.svg"
     },
     {
       "name": "South Africa",
-      "capital": "Pretoria"
+      "capital": "Pretoria",
+      "flag": "./public/southafrica.svg"
     },
     {
       "name": "South Korea",
-      "capital": "Seoul"
+      "capital": "Seoul",
+      "flag": "./public/southkorea.svg"
     },
     {
       "name": "Spain",
-      "capital": "Madrid"
+      "capital": "Madrid",
+      "flag": "./public/spain.svg"
     },
     {
       "name": "United Kingdom",
-      "capital": "London"
+      "capital": "London",
+      "flag": "./public/uk.svg"
     },
     {
       "name": "United States",
-      "capital": "Washington, D.C."
+      "capital": "Washington, D.C.",
+      "flag": "./public/usa.svg"
+    },
+    {
+      "name": "Portugal",
+      "capital": "Lisbon",
+      "flag": "./public/portugal.svg"
+    },
+    {
+      "name": "Switzerland",
+      "capital": "Bern",
+      "flag": "./public/switzerland-svgrepo-com.svg"
+    },
+    {
+      "name": "Turkey",
+      "capital": "Ankara",
+      "flag": "./public/turkey.svg"
     }
+    // Add more countries with their corresponding flags
   ]
 }

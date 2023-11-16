@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 type CountryCapitalProps = {
   countries: Map<string, string>;
