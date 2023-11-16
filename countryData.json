@@ -108,13 +108,12 @@
     {
       "name": "Switzerland",
       "capital": "Bern",
-      "flag": "./public/switzerland-svgrepo-com.svg"
+      "flag": "./public/switzerland.svg"
     },
     {
       "name": "Turkey",
       "capital": "Ankara",
       "flag": "./public/turkey.svg"
     }
-    // Add more countries with their corresponding flags
   ]
 }

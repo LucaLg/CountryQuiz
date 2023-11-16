@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useState } from "react";
-
+import countryDatat from "../../countryData.json";
 type CountryCapitalProps = {
   countries: Map<string, string>;
   shuffeld: string[];
@@ -9,58 +9,52 @@ function CountryCapitals({ countries, shuffeld }: CountryCapitalProps) {
   const [clickState, setClickState] = useState("default");
   const [buttonStates, setButtonState] = useState(initialButtonState(shuffeld));
   const [clickedIndex, setClickedIndex] = useState([]);
-  const [clickedValue, setClickedValues] = useState({ name: "", index: 0 });
+  const [clickedValue, setClickedValue] = useState({ name: "", index: 0 });
   const [errors, setErrors] = useState(0);
+  const updateState = (
+    buttonState: string[],
+    clickedIndex: number[],
+    newClickState: string,
+    entry: string,
+    newIndex: number,
+  ) => {
+    setButtonState(buttonState);
+    setClickState(newClickState);
+    setClickedIndex(clickedIndex);
+    setClickedValue({ name: entry, index: newIndex });
+  };
   const handleClick = (index: number, entry: string) => {
     if (clickState === "default") {
       buttonStates[index] = "blue";
-      setButtonState(buttonStates);
-      setClickState("blue");
-      setClickedIndex([index]);
-      setClickedValues({ name: entry, index: index });
+      updateState(buttonStates, [index], "blue", entry, index);
     }
     if (clickState === "blue") {
-      setClickedIndex([...clickedIndex, index]);
-      if (countries.has(entry) && countries.get(entry) === clickedValue.name) {
-        shuffeld.splice(index, 1);
-        shuffeld.splice(clickedValue.index, 1);
-        buttonStates[index] = "default";
-        buttonStates[clickedValue.index] = "default";
-        setButtonState(buttonStates);
-        setClickState("default");
-        setClickedValues({ name: "", index: 0 });
-        return;
-      }
-
       if (
-        countries.has(clickedValue.name) &&
-        countries.get(clickedValue.name) === entry
+        (countries.has(entry) && countries.get(entry) === clickedValue.name) ||
+        (countries.has(clickedValue.name) &&
+          countries.get(clickedValue.name) === entry)
       ) {
-        shuffeld.splice(index, 1);
-        shuffeld.splice(clickedValue.index, 1);
-        buttonStates[index] = "default";
-        buttonStates[clickedValue.index] = "default";
-        setButtonState(buttonStates);
-        setClickState("default");
-        setClickedValues({ name: "", index: 0 });
+        const { newBts, updatedShuffeld } = correctGuess(
+          buttonStates,
+          shuffeld,
+          index,
+          clickedValue.index,
+        );
+        shuffeld = updatedShuffeld;
+        updateState(newBts, [...clickedIndex, index], "default", "", 0);
         return;
       } else {
         buttonStates[index] = "red";
         buttonStates[clickedValue.index] = "red";
+        updateState(buttonStates, [...clickedIndex, index], "red", "", 0);
         setErrors(errors + 1);
-        setButtonState(buttonStates);
-        setClickedIndex([...clickedIndex, index]);
-        setClickState("red");
         return;
       }
     }
     if (clickState === "red") {
       buttonStates[index] = "blue";
       clickedIndex.forEach((i) => (buttonStates[i] = "default"));
-      setClickedIndex([]);
-      setClickedValues({ name: entry, index: index });
-      setButtonState(buttonStates);
-      setClickState("blue");
+      updateState(buttonStates, [index], "blue", entry, index);
     }
   };
   const buttons = shuffeld.map((entry, index) => (
@@ -84,17 +78,28 @@ function CountryCapitals({ countries, shuffeld }: CountryCapitalProps) {
       <div className="w-full h-14 flex justify-center flex-row ">
         <h1 className="font-bold text-2xl tracking-wide">Country Quiz</h1>
       </div>
-      <div className="w-full h-full shadow-black grid-cols-5  grid items-center justify-items-center  ">
+      <div className="w-full h-full shadow-black grid-cols-6  grid items-center justify-items-center  ">
         {buttons}
       </div>
     </>
   );
 }
+
 function initialButtonState(countries: String[]) {
-  const initialButtonState = [];
-  for (const country of countries) {
-    initialButtonState.push("default");
-  }
+  const initialButtonState: string[] = [];
+  countries.forEach(() => initialButtonState.push("default"));
   return initialButtonState;
+}
+function correctGuess(
+  buttonStates: string[],
+  shuffeld: string[],
+  index: number,
+  clickedValueIndex: number,
+): { newBts: string[]; updatedShuffeld: string[] } {
+  shuffeld.splice(index, 1);
+  shuffeld.splice(clickedValueIndex, 1);
+  buttonStates[index] = "default";
+  buttonStates[clickedValueIndex] = "default";
+  return { newBts: buttonStates, updatedShuffeld: shuffeld };
 }
 export default CountryCapitals;
