@@ -11,12 +11,7 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
   const [clickedIndex, setClickedIndex] = useState([]);
   const [clickedValue, setClickedValue] = useState({ name: "", index: 0 });
   const [errors, setErrors] = useState(0);
-  const flagPath = (country: string) => {
-    return countryDatat.countries.filter((ctry) => country === ctry.name)[0]
-      .flag;
-  };
   const correctG = (index: number) => {
-    console.log("animation");
     buttonStates[index] = "hidden";
     updateState(buttonStates, [...clickedIndex, index], "default", "", 0);
   };
@@ -61,36 +56,49 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
       updateState(buttonStates, [index], "blue", entry, index);
     }
   };
-  const buttons = shuffeld.map((entry, index) => (
-    <button
-      onClick={() => handleClick(index, entry)}
-      key={entry}
-      onAnimationEnd={() => {
-        setTimeout(() => correctG(index), 500);
-      }}
-      className={clsx(
-        " w-32 h-20 text-white  rounded-md border border-black drop-shadow-lg",
-        {
-          "bg-blue-500 disabled": buttonStates[index] === "blue",
-          "bg-black": buttonStates[index] === "default",
-          "bg-red-500": buttonStates[index] === "red",
-          "animate-button-spin text-white bg-green-700":
-            buttonStates[index] === "correct",
-          hidden: buttonStates[index] === "hidden",
-        },
-      )}
-    >
-      <span>{entry}</span>
-    </button>
-  ));
+  const buttons = shuffeld.map((entry, index) => {
+    return (
+      <button
+        onClick={() => {
+          handleClick(index, entry);
+        }}
+        key={entry}
+        onAnimationEnd={() => {
+          setTimeout(() => correctG(index), 500);
+        }}
+        disabled={
+          buttonStates[index] === "blue" || buttonStates[index] === "red"
+        }
+        className={clsx(
+          " w-32 h-20 text-white  rounded-md border border-black drop-shadow-lg",
+          {
+            "bg-sky-500": buttonStates[index] === "blue",
+            "bg-black": buttonStates[index] === "default",
+            "bg-red-600": buttonStates[index] === "red",
+            "bg-emerald-600 animate-button-spin text-white":
+              buttonStates[index] === "correct",
+            hidden: buttonStates[index] === "hidden",
+          },
+        )}
+      >
+        <span>{entry}</span>
+      </button>
+    );
+  });
+  const w = won(buttonStates);
   return (
     <>
       <div className="w-full h-14 flex justify-center flex-row ">
         <h1 className="font-bold text-2xl tracking-wide">Country Quiz</h1>
       </div>
-      <div className="w-full h-full shadow-black grid-cols-6  grid items-center justify-items-center  ">
-        {buttons}
-      </div>
+      <div className="font-bold text-l">Fehler: {errors}</div>
+      {!w ? (
+        <div className="w-3/4 h-3/4 shadow-black grid-cols-4  grid items-center justify-items-center  ">
+          {buttons}
+        </div>
+      ) : (
+        <div>Won</div>
+      )}
     </>
   );
 };
@@ -100,20 +108,10 @@ function initialButtonState(countries: String[]) {
   countries.forEach(() => initialButtonState.push("default"));
   return initialButtonState;
 }
-function correctGuess(
-  buttonStates: string[],
-  shuffeld: string[],
-  index: number,
-  clickedValueIndex: number,
-  buttons: JSX.Element[],
-): Promise<{ newBts: string[]; updatedShuffeld: string[] }> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      shuffeld.splice(index, 1);
-      shuffeld.splice(clickedValueIndex, 1);
-
-      resolve({ newBts: buttonStates, updatedShuffeld: shuffeld });
-    }, 500);
-  });
-}
+const won = (buttonStates: string[]) => {
+  return (
+    buttonStates.filter((state) => state === "hidden").length ===
+    buttonStates.length
+  );
+};
 export default CountryCapitals;

@@ -8,14 +8,15 @@ export default {
           "0%": {
             transform: " rotateY(0)",
           },
-          "50%": { transform: "rotateY(180deg)" },
+          "50%": { transform: "rotateY(360deg)" },
+          "80%": { transform: "scale(0.5)" },
           "100%": {
-            transform: " rotateY(360deg)",
+            transform: " scale(0)",
           },
         },
       },
       animation: {
-        "button-spin": "spin 0.5s linear both",
+        "button-spin": "spin 1s linear both",
         "wave-an": "wave 2s linear infinite",
       },
     },

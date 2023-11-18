@@ -114,6 +114,51 @@
       "name": "Turkey",
       "capital": "Ankara",
       "flag": "./public/turkey.svg"
+    },
+    {
+      "name": "Greece",
+      "capital": "Athens",
+      "flag": "./public/greece.svg"
+    },
+    {
+      "name": "Ireland",
+      "capital": "Dublin",
+      "flag": "./public/ireland.svg"
+    },
+    {
+      "name": "Kenya",
+      "capital": "Nairobi",
+      "flag": "./public/kenya.svg"
+    },
+    {
+      "name": "Peru",
+      "capital": "Lima",
+      "flag": "./public/peru.svg"
+    },
+    {
+      "name": "Singapore",
+      "capital": "Singapore",
+      "flag": "./public/singapore.svg"
+    },
+    {
+      "name": "Sweden",
+      "capital": "Stockholm",
+      "flag": "./public/sweden.svg"
+    },
+    {
+      "name": "Philippines",
+      "capital": "Manila",
+      "flag": "./public/philippines.svg"
+    },
+    {
+      "name": "Romania",
+      "capital": "Bucharest",
+      "flag": "./public/romania.svg"
+    },
+    {
+      "name": "Thailand",
+      "capital": "Bangkok",
+      "flag": "./public/thailand.svg"
     }
   ]
 }
