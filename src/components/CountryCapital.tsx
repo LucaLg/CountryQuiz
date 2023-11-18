@@ -5,12 +5,21 @@ type CountryCapitalProps = {
   countries: Map<string, string>;
   shuffeld: string[];
 };
-function CountryCapitals({ countries, shuffeld }: CountryCapitalProps) {
+const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
   const [clickState, setClickState] = useState("default");
   const [buttonStates, setButtonState] = useState(initialButtonState(shuffeld));
   const [clickedIndex, setClickedIndex] = useState([]);
   const [clickedValue, setClickedValue] = useState({ name: "", index: 0 });
   const [errors, setErrors] = useState(0);
+  const flagPath = (country: string) => {
+    return countryDatat.countries.filter((ctry) => country === ctry.name)[0]
+      .flag;
+  };
+  const correctG = (index: number) => {
+    console.log("animation");
+    buttonStates[index] = "hidden";
+    updateState(buttonStates, [...clickedIndex, index], "default", "", 0);
+  };
   const updateState = (
     buttonState: string[],
     clickedIndex: number[],
@@ -23,7 +32,7 @@ function CountryCapitals({ countries, shuffeld }: CountryCapitalProps) {
     setClickedIndex(clickedIndex);
     setClickedValue({ name: entry, index: newIndex });
   };
-  const handleClick = (index: number, entry: string) => {
+  const handleClick = async (index: number, entry: string) => {
     if (clickState === "default") {
       buttonStates[index] = "blue";
       updateState(buttonStates, [index], "blue", entry, index);
@@ -34,14 +43,9 @@ function CountryCapitals({ countries, shuffeld }: CountryCapitalProps) {
         (countries.has(clickedValue.name) &&
           countries.get(clickedValue.name) === entry)
       ) {
-        const { newBts, updatedShuffeld } = correctGuess(
-          buttonStates,
-          shuffeld,
-          index,
-          clickedValue.index,
-        );
-        shuffeld = updatedShuffeld;
-        updateState(newBts, [...clickedIndex, index], "default", "", 0);
+        buttonStates[index] = "correct";
+        buttonStates[clickedValue.index] = "correct";
+        updateState(buttonStates, [...clickedIndex, index], "default", "", 0);
         return;
       } else {
         buttonStates[index] = "red";
@@ -61,16 +65,22 @@ function CountryCapitals({ countries, shuffeld }: CountryCapitalProps) {
     <button
       onClick={() => handleClick(index, entry)}
       key={entry}
+      onAnimationEnd={() => {
+        setTimeout(() => correctG(index), 500);
+      }}
       className={clsx(
-        "w-32 h-20 text-white  rounded-md border border-black drop-shadow-lg",
+        " w-32 h-20 text-white  rounded-md border border-black drop-shadow-lg",
         {
-          "bg-blue-500": buttonStates[index] === "blue",
+          "bg-blue-500 disabled": buttonStates[index] === "blue",
           "bg-black": buttonStates[index] === "default",
           "bg-red-500": buttonStates[index] === "red",
+          "animate-button-spin text-white bg-green-700":
+            buttonStates[index] === "correct",
+          hidden: buttonStates[index] === "hidden",
         },
       )}
     >
-      {entry}
+      <span>{entry}</span>
     </button>
   ));
   return (
@@ -83,7 +93,7 @@ function CountryCapitals({ countries, shuffeld }: CountryCapitalProps) {
       </div>
     </>
   );
-}
+};
 
 function initialButtonState(countries: String[]) {
   const initialButtonState: string[] = [];
@@ -95,11 +105,15 @@ function correctGuess(
   shuffeld: string[],
   index: number,
   clickedValueIndex: number,
-): { newBts: string[]; updatedShuffeld: string[] } {
-  shuffeld.splice(index, 1);
-  shuffeld.splice(clickedValueIndex, 1);
-  buttonStates[index] = "default";
-  buttonStates[clickedValueIndex] = "default";
-  return { newBts: buttonStates, updatedShuffeld: shuffeld };
+  buttons: JSX.Element[],
+): Promise<{ newBts: string[]; updatedShuffeld: string[] }> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      shuffeld.splice(index, 1);
+      shuffeld.splice(clickedValueIndex, 1);
+
+      resolve({ newBts: buttonStates, updatedShuffeld: shuffeld });
+    }, 500);
+  });
 }
 export default CountryCapitals;
