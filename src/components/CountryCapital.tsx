@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useState } from "react";
-import countryDatat from "../../countryData.json";
+import countryData from "../../countryData.json";
 type CountryCapitalProps = {
   countries: Map<string, string>;
   shuffeld: string[];
@@ -56,44 +56,70 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
       updateState(buttonStates, [index], "blue", entry, index);
     }
   };
+  const backgroundStyle = (entry: string) => {
+    const flag = countryData.countries.filter((value) => {
+      if (value.name === entry || value.capital === entry) {
+        return value;
+      }
+    })[0].flag;
+
+    console.log(flag);
+    return flag;
+  };
   const buttons = shuffeld.map((entry, index) => {
-    return (
-      <button
-        onClick={() => {
-          handleClick(index, entry);
-        }}
-        key={entry}
-        onAnimationEnd={() => {
-          setTimeout(() => correctG(index), 500);
-        }}
-        disabled={
-          buttonStates[index] === "blue" || buttonStates[index] === "red"
-        }
-        className={clsx(
-          " w-32 h-20 text-white  rounded-md border border-black drop-shadow-lg",
-          {
-            "bg-sky-500": buttonStates[index] === "blue",
-            "bg-black": buttonStates[index] === "default",
-            "bg-red-600": buttonStates[index] === "red",
-            "bg-emerald-600 animate-button-spin text-white":
-              buttonStates[index] === "correct",
-            hidden: buttonStates[index] === "hidden",
-          },
-        )}
-      >
-        <span>{entry}</span>
-      </button>
-    );
+    const dynamicStyle =
+      buttonStates[index] === "hidden"
+        ? "bg-cover bg-[url(" + `${backgroundStyle(entry)}` + ")]"
+        : "";
+    if (buttonStates[index] != "hidden") {
+      return (
+        <button
+          onClick={() => {
+            handleClick(index, entry);
+          }}
+          key={entry}
+          onAnimationEnd={() => {
+            setTimeout(() => correctG(index), 500);
+          }}
+          disabled={
+            buttonStates[index] === "blue" || buttonStates[index] === "red"
+          }
+          className={clsx(
+            " w-32 h-20 text-white   rounded-md border border-black drop-shadow-lg ",
+            {
+              "bg-sky-500": buttonStates[index] === "blue",
+              "bg-black": buttonStates[index] === "default",
+              "bg-red-600": buttonStates[index] === "red",
+              "bg-emerald-600 animate-button-spin text-white":
+                buttonStates[index] === "correct",
+            },
+            dynamicStyle,
+          )}
+        >
+          <span>{entry}</span>
+        </button>
+      );
+    } else {
+      return (
+        <img
+          src={`${backgroundStyle(entry)}`}
+          className="w-22 h-20 "
+          alt={`${entry}`}
+        />
+      );
+    }
   });
   const w = won(buttonStates);
   return (
     <>
       <div className="w-full h-14 flex justify-center flex-row ">
-        <h1 className="font-bold text-2xl tracking-wide">Country Quiz</h1>
+        <h1 className="font-bold text-3xl drop-shadow-md tracking-wide  antialiased  ">
+          Country Quiz
+        </h1>
       </div>
       <div className="font-bold text-l">Fehler: {errors}</div>
       {!w ? (
-        <div className="w-3/4 h-3/4 shadow-black grid-cols-4  grid items-center justify-items-center  ">
+        <div className="w-3/4 h-3/4 bg-opacity-20 from-gray-500/40 backdrop-blur-sm  to-gray-600/40 bg-gradient-to-b rounded-s  shadow-md shadow-black grid-cols-4  grid items-center justify-items-center  ">
           {buttons}
         </div>
       ) : (
@@ -103,7 +129,7 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
   );
 };
 
-function initialButtonState(countries: String[]) {
+function initialButtonState(countries: string[]) {
   const initialButtonState: string[] = [];
   countries.forEach(() => initialButtonState.push("default"));
   return initialButtonState;

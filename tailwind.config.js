@@ -3,16 +3,15 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        world: "url('bg-world.jpg')",
+      },
       keyframes: {
         spin: {
           "0%": {
             transform: " rotateY(0)",
           },
-          "50%": { transform: "rotateY(360deg)" },
-          "80%": { transform: "scale(0.5)" },
-          "100%": {
-            transform: " scale(0)",
-          },
+          "100%": { transform: "rotateY(360deg)" },
         },
       },
       animation: {

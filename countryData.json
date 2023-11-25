@@ -28,7 +28,7 @@
     {
       "name": "France",
       "capital": "Paris",
-      "flag": "./public/france.svg"
+      "flag": "../../public/france.svg"
     },
     {
       "name": "Germany",
