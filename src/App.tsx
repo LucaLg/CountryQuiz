@@ -18,7 +18,7 @@ function App() {
     });
   return (
     <>
-      <div className="w-full h-full bg-world text-white bg-cover flex flex-col justify-center items-center">
+      <div className="w-screen h-screen bg-world  text-white bg-cover flex flex-col justify-center items-center">
         <CountryCapitals
           countries={countryMap}
           shuffeld={buttonEntries.sort(() => Math.random() - 0.5)}

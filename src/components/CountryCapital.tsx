@@ -71,43 +71,42 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
       buttonStates[index] === "hidden"
         ? "bg-cover bg-[url(" + `${backgroundStyle(entry)}` + ")]"
         : "";
-    if (buttonStates[index] != "hidden") {
-      return (
-        <button
-          onClick={() => {
-            handleClick(index, entry);
-          }}
-          key={entry}
-          onAnimationEnd={() => {
-            setTimeout(() => correctG(index), 500);
-          }}
-          disabled={
-            buttonStates[index] === "blue" || buttonStates[index] === "red"
-          }
-          className={clsx(
-            " w-32 h-20 text-white   rounded-md border border-black drop-shadow-lg ",
-            {
-              "bg-sky-500": buttonStates[index] === "blue",
-              "bg-black": buttonStates[index] === "default",
-              "bg-red-600": buttonStates[index] === "red",
-              "bg-emerald-600 animate-button-spin text-white":
-                buttonStates[index] === "correct",
-            },
-            dynamicStyle,
-          )}
-        >
+    return (
+      <button
+        onClick={() => {
+          handleClick(index, entry);
+        }}
+        key={entry}
+        onAnimationEnd={() => {
+          setTimeout(() => correctG(index), 300);
+        }}
+        disabled={
+          buttonStates[index] === "blue" || buttonStates[index] === "red"
+        }
+        className={clsx(
+          " w-32 h-20 text-white flex flex-row justify-center items-center  rounded-md border border-black drop-shadow-lg ",
+          {
+            "bg-sky-500": buttonStates[index] === "blue",
+            "bg-black": buttonStates[index] === "default",
+            "bg-red-600": buttonStates[index] === "red",
+            "bg-emerald-600 animate-button-spin text-white":
+              buttonStates[index] === "correct",
+            "border-none ": buttonStates[index] === "hidden",
+          },
+          dynamicStyle,
+        )}
+      >
+        {buttonStates[index] === "hidden" ? (
+          <img
+            src={`${backgroundStyle(entry)}`}
+            className="w-22 h-20 "
+            alt={`${backgroundStyle(entry)}`}
+          />
+        ) : (
           <span>{entry}</span>
-        </button>
-      );
-    } else {
-      return (
-        <img
-          src={`${backgroundStyle(entry)}`}
-          className="w-22 h-20 "
-          alt={`${entry}`}
-        />
-      );
-    }
+        )}
+      </button>
+    );
   });
   const w = won(buttonStates);
   return (
@@ -119,7 +118,7 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
       </div>
       <div className="font-bold text-l">Fehler: {errors}</div>
       {!w ? (
-        <div className="w-3/4 h-3/4 bg-opacity-20 from-gray-500/40 backdrop-blur-sm  to-gray-600/40 bg-gradient-to-b rounded-s  shadow-md shadow-black grid-cols-4  grid items-center justify-items-center  ">
+        <div className="w-3/4 h-3/4 bg-opacity-20 rounded-lg from-gray-500/40 backdrop-blur-sm  to-gray-600/40 bg-gradient-to-b rounded-s  shadow-md shadow-black grid-cols-4  grid items-center justify-items-center  ">
           {buttons}
         </div>
       ) : (
