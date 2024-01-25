@@ -6,3 +6,11 @@ Die App wurde zum Üben von NextJs, React und Tailwind erstellt.
 ## Grundidee
 
 https://www.youtube.com/watch?v=XTgB4esy1is
+
+## Ausführen
+
+```
+npm install
+npm run dev
+
+```
