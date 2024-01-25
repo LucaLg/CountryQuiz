@@ -5,4 +5,4 @@ Die App wurde zum Üben von NextJs, React und Tailwind erstellt.
 
 ## Grundidee
 
-https://www.youtube.com/watch?v=XTgB4esy1is&t=1271s
+https://www.youtube.com/watch?v=XTgB4esy1is
