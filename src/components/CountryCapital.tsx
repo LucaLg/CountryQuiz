@@ -20,7 +20,7 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
     clickedIndex: number[],
     newClickState: string,
     entry: string,
-    newIndex: number,
+    newIndex: number
   ) => {
     setButtonState(buttonState);
     setClickState(newClickState);
@@ -93,14 +93,14 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
               buttonStates[index] === "correct",
             "border-none ": buttonStates[index] === "hidden",
           },
-          dynamicStyle,
+          dynamicStyle
         )}
       >
         {buttonStates[index] === "hidden" ? (
           <img
             src={`${backgroundStyle(entry)}`}
             className="w-22 h-20 "
-            alt={`${backgroundStyle(entry)}`}
+            alt={`${entry} flag`}
           />
         ) : (
           <span>{entry}</span>

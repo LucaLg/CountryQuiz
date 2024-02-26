@@ -1,7 +1,7 @@
 # Country Quiz
 
-Coutry Quiz ist eine NextJs App, in der Hauptstädte zu Ländern zugeordnet werden müssen.
-Die App wurde zum Üben von NextJs, React und Tailwind erstellt.
+Coutry Quiz ist eine React Vite App, in der Hauptstädte zu Ländern zugeordnet werden müssen.
+Die App wurde zum Üben von React und Tailwind erstellt.
 
 ## Grundidee
 

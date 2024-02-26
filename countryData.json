@@ -3,162 +3,162 @@
     {
       "name": "Argentina",
       "capital": "Buenos Aires",
-      "flag": "./public/argentina.svg"
+      "flag": "/argentina.svg"
     },
     {
       "name": "Australia",
       "capital": "Canberra",
-      "flag": "./public/australia.svg"
+      "flag": "/australia.svg"
     },
     {
       "name": "Brazil",
       "capital": "Brasília",
-      "flag": "./public/brazil.svg"
+      "flag": "/brazil.svg"
     },
     {
       "name": "Canada",
       "capital": "Ottawa",
-      "flag": "./public/canada.svg"
+      "flag": "/canada.svg"
     },
     {
       "name": "China",
       "capital": "Beijing",
-      "flag": "./public/china.svg"
+      "flag": "/china.svg"
     },
     {
       "name": "France",
       "capital": "Paris",
-      "flag": "../../public/france.svg"
+      "flag": "/france.svg"
     },
     {
       "name": "Germany",
       "capital": "Berlin",
-      "flag": "./public/germany.svg"
+      "flag": "/germany.svg"
     },
     {
       "name": "India",
       "capital": "New Delhi",
-      "flag": "./public/india.svg"
+      "flag": "/india.svg"
     },
     {
       "name": "Indonesia",
       "capital": "Jakarta",
-      "flag": "./public/indonesia.svg"
+      "flag": "/indonesia.svg"
     },
     {
       "name": "Italy",
       "capital": "Rome",
-      "flag": "./public/italy.svg"
+      "flag": "/italy.svg"
     },
     {
       "name": "Japan",
       "capital": "Tokyo",
-      "flag": "./public/japan.svg"
+      "flag": "/japan.svg"
     },
     {
       "name": "Mexico",
       "capital": "Mexico City",
-      "flag": "./public/mexico.svg"
+      "flag": "/mexico.svg"
     },
     {
       "name": "Netherlands",
       "capital": "Amsterdam",
-      "flag": "./public/netherlands.svg"
+      "flag": "/netherlands.svg"
     },
     {
       "name": "Nigeria",
       "capital": "Abuja",
-      "flag": "./public/nigeria.svg"
+      "flag": "/nigeria.svg"
     },
     {
       "name": "Russia",
       "capital": "Moscow",
-      "flag": "./public/russia.svg"
+      "flag": "/russia.svg"
     },
     {
       "name": "South Africa",
       "capital": "Pretoria",
-      "flag": "./public/southafrica.svg"
+      "flag": "/southafrica.svg"
     },
     {
       "name": "South Korea",
       "capital": "Seoul",
-      "flag": "./public/southkorea.svg"
+      "flag": "/southkorea.svg"
     },
     {
       "name": "Spain",
       "capital": "Madrid",
-      "flag": "./public/spain.svg"
+      "flag": "/spain.svg"
     },
     {
       "name": "United Kingdom",
       "capital": "London",
-      "flag": "./public/uk.svg"
+      "flag": "/uk.svg"
     },
     {
       "name": "United States",
       "capital": "Washington, D.C.",
-      "flag": "./public/usa.svg"
+      "flag": "/usa.svg"
     },
     {
       "name": "Portugal",
       "capital": "Lisbon",
-      "flag": "./public/portugal.svg"
+      "flag": "/portugal.svg"
     },
     {
       "name": "Switzerland",
       "capital": "Bern",
-      "flag": "./public/switzerland.svg"
+      "flag": "/switzerland.svg"
     },
     {
       "name": "Turkey",
       "capital": "Ankara",
-      "flag": "./public/turkey.svg"
+      "flag": "/turkey.svg"
     },
     {
       "name": "Greece",
       "capital": "Athens",
-      "flag": "./public/greece.svg"
+      "flag": "/greece.svg"
     },
     {
       "name": "Ireland",
       "capital": "Dublin",
-      "flag": "./public/ireland.svg"
+      "flag": "/ireland.svg"
     },
     {
       "name": "Kenya",
       "capital": "Nairobi",
-      "flag": "./public/kenya.svg"
+      "flag": "/kenya.svg"
     },
     {
       "name": "Peru",
       "capital": "Lima",
-      "flag": "./public/peru.svg"
+      "flag": "/peru.svg"
     },
     {
       "name": "Singapore",
       "capital": "Singapore",
-      "flag": "./public/singapore.svg"
+      "flag": "/singapore.svg"
     },
     {
       "name": "Sweden",
       "capital": "Stockholm",
-      "flag": "./public/sweden.svg"
+      "flag": "/sweden.svg"
     },
     {
       "name": "Philippines",
       "capital": "Manila",
-      "flag": "./public/philippines.svg"
+      "flag": "/philippines.svg"
     },
     {
       "name": "Romania",
       "capital": "Bucharest",
-      "flag": "./public/romania.svg"
+      "flag": "/romania.svg"
     },
     {
       "name": "Thailand",
       "capital": "Bangkok",
-      "flag": "./public/thailand.svg"
+      "flag": "/thailand.svg"
     }
   ]
 }
