@@ -1,18 +1,36 @@
 import clsx from "clsx";
 import { useState } from "react";
-import countryData from "../../countryData.json";
+import countryJsonData from "../../countryData.json";
 type CountryCapitalProps = {
   countries: Map<string, string>;
   shuffeld: string[];
 };
+type CountryData = {
+  countries: {
+    name: string;
+    capital: string;
+    flag: string;
+  }[];
+};
+const countryData: CountryData = countryJsonData as CountryData;
+const buttonClasses = new Map<string, string>([
+  ["correct", "bg-emerald-600 animate-button-spin  "],
+  ["hidden", "border-none"],
+  ["default", "bg-black"],
+  ["blue", "bg-sky-500"],
+  ["red", "bg-red-600"],
+]);
 const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
   const [clickState, setClickState] = useState("default");
   const [buttonStates, setButtonState] = useState(initialButtonState(shuffeld));
-  const [clickedIndex, setClickedIndex] = useState([]);
+  const [clickedIndex, setClickedIndex] = useState([] as number[]);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [clickedValue, setClickedValue] = useState({ name: "", index: 0 });
   const [errors, setErrors] = useState(0);
-  const correctG = (index: number) => {
+
+  const correctGuess = (index: number) => {
     buttonStates[index] = "hidden";
+    setIsAnimating(false);
     updateState(buttonStates, [...clickedIndex, index], "default", "", 0);
   };
   const updateState = (
@@ -27,17 +45,23 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
     setClickedIndex(clickedIndex);
     setClickedValue({ name: entry, index: newIndex });
   };
-  const handleClick = async (index: number, entry: string) => {
+  const handleClick = (index: number, entry: string) => {
     if (clickState === "default") {
       buttonStates[index] = "blue";
       updateState(buttonStates, [index], "blue", entry, index);
     }
+    if (clickState === "red") {
+      buttonStates[index] = "blue";
+      clickedIndex.forEach((i) => (buttonStates[i] = "default"));
+      updateState(buttonStates, [index], "blue", entry, index);
+    }
     if (clickState === "blue") {
-      if (
+      const isCorrectGuess =
         (countries.has(entry) && countries.get(entry) === clickedValue.name) ||
         (countries.has(clickedValue.name) &&
-          countries.get(clickedValue.name) === entry)
-      ) {
+          countries.get(clickedValue.name) === entry);
+      if (isCorrectGuess) {
+        setIsAnimating(true);
         buttonStates[index] = "correct";
         buttonStates[clickedValue.index] = "correct";
         updateState(buttonStates, [...clickedIndex, index], "default", "", 0);
@@ -50,65 +74,33 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
         return;
       }
     }
-    if (clickState === "red") {
-      buttonStates[index] = "blue";
-      clickedIndex.forEach((i) => (buttonStates[i] = "default"));
-      updateState(buttonStates, [index], "blue", entry, index);
-    }
   };
-  const backgroundStyle = (entry: string) => {
-    const flag = countryData.countries.filter((value) => {
-      if (value.name === entry || value.capital === entry) {
-        return value;
-      }
-    })[0].flag;
-
-    console.log(flag);
-    return flag;
-  };
-  const buttons = shuffeld.map((entry, index) => {
-    const dynamicStyle =
-      buttonStates[index] === "hidden"
-        ? "bg-cover bg-[url(" + `${backgroundStyle(entry)}` + ")]"
-        : "";
+  const renderButton = (entry: string, index: number) => {
+    const buttonState = buttonStates[index];
     return (
-      <button
-        onClick={() => {
-          handleClick(index, entry);
-        }}
-        key={entry}
-        onAnimationEnd={() => {
-          setTimeout(() => correctG(index), 300);
-        }}
-        disabled={
-          buttonStates[index] === "blue" || buttonStates[index] === "red"
-        }
-        className={clsx(
-          " w-32 h-20 text-white flex flex-row justify-center items-center  rounded-md border border-black drop-shadow-lg ",
-          {
-            "bg-sky-500": buttonStates[index] === "blue",
-            "bg-black": buttonStates[index] === "default",
-            "bg-red-600": buttonStates[index] === "red",
-            "bg-emerald-600 animate-button-spin text-white":
-              buttonStates[index] === "correct",
-            "border-none ": buttonStates[index] === "hidden",
-          },
-          dynamicStyle
-        )}
-      >
-        {buttonStates[index] === "hidden" ? (
-          <img
-            src={`${backgroundStyle(entry)}`}
-            className="w-22 h-20 "
-            alt={`${entry} flag`}
-          />
-        ) : (
+      <div className="relative w-32 h-20">
+        <img
+          src={`${getFlagPath(entry, countryData)}`}
+          className="absolute inset-0 z-10 w-full h-full object-cover rounded-md  "
+          alt={`${entry} flag`}
+        />
+        <button
+          onClick={() => handleClick(index, entry)}
+          key={entry}
+          onAnimationEnd={() => setTimeout(() => correctGuess(index), 300)}
+          disabled={buttonState !== "default" || isAnimating}
+          className={clsx(
+            "relative z-20 w-32 h-20 text-white flex flex-row justify-center items-center rounded-md border border-black drop-shadow-lg",
+            buttonClasses.get(buttonState)
+          )}
+        >
           <span>{entry}</span>
-        )}
-      </button>
+        </button>
+      </div>
     );
-  });
-  const w = won(buttonStates);
+  };
+  const buttons = shuffeld.map((entry, index) => renderButton(entry, index));
+  const wonState = won(buttonStates);
   return (
     <>
       <div className="w-full h-14 flex justify-center flex-row ">
@@ -116,9 +108,9 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
           Country Quiz
         </h1>
       </div>
-      <div className="font-bold text-l">Fehler: {errors}</div>
-      {!w ? (
-        <div className="w-3/4 h-3/4 bg-opacity-20 rounded-lg from-gray-500/40 backdrop-blur-sm  to-gray-600/40 bg-gradient-to-b rounded-s  shadow-md shadow-black grid-cols-4  grid items-center justify-items-center  ">
+      <div className="font-bold text-l pb-4 ">Fehler: {errors}</div>
+      {!wonState ? (
+        <div className="w-3/4 h-3/4 bg-opacity-20 rounded-lg  from-gray-500/40 backdrop-blur-sm  to-gray-600/40 bg-gradient-to-b rounded-s  shadow-md shadow-black grid-cols-4  grid items-center justify-items-center  ">
           {buttons}
         </div>
       ) : (
@@ -127,16 +119,23 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
     </>
   );
 };
-
 function initialButtonState(countries: string[]) {
   const initialButtonState: string[] = [];
   countries.forEach(() => initialButtonState.push("default"));
   return initialButtonState;
 }
-const won = (buttonStates: string[]) => {
+function won(buttonStates: string[]) {
   return (
     buttonStates.filter((state) => state === "hidden").length ===
     buttonStates.length
   );
-};
+}
+function getFlagPath(entry: string, countryData: CountryData) {
+  const flag = countryData.countries.filter((value) => {
+    if (value.name === entry || value.capital === entry) {
+      return value;
+    }
+  })[0].flag;
+  return flag;
+}
 export default CountryCapitals;

@@ -10,13 +10,14 @@ export default {
         spin: {
           "0%": {
             transform: " rotateY(0)",
+            opacity: 1,
           },
-          "100%": { transform: "rotateY(360deg)" },
+          "100%": { transform: "rotateY(360deg)", opacity: 0 },
         },
       },
       animation: {
-        "button-spin": "spin 1s linear both",
-        "wave-an": "wave 2s linear infinite",
+        "button-spin": "spin 0.5s linear both",
+        "wave-an": "wave 1s linear infinite",
       },
     },
   },
