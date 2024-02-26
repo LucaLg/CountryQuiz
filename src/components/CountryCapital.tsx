@@ -4,6 +4,7 @@ import countryJsonData from "../../countryData.json";
 type CountryCapitalProps = {
   countries: Map<string, string>;
   shuffeld: string[];
+  setWonState: (state: boolean) => void;
 };
 type CountryData = {
   countries: {
@@ -20,7 +21,11 @@ const buttonClasses = new Map<string, string>([
   ["blue", "bg-sky-500"],
   ["red", "bg-red-600"],
 ]);
-const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
+const CountryCapitals = ({
+  countries,
+  shuffeld,
+  setWonState,
+}: CountryCapitalProps) => {
   const [clickState, setClickState] = useState("default");
   const [buttonStates, setButtonState] = useState(initialButtonState(shuffeld));
   const [clickedIndex, setClickedIndex] = useState([] as number[]);
@@ -100,7 +105,7 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
     );
   };
   const buttons = shuffeld.map((entry, index) => renderButton(entry, index));
-  const wonState = won(buttonStates);
+  checkWonState(buttonStates, setWonState);
   return (
     <>
       <div className="w-full h-14 flex justify-center flex-row ">
@@ -109,13 +114,9 @@ const CountryCapitals = ({ countries, shuffeld }: CountryCapitalProps) => {
         </h1>
       </div>
       <div className="font-bold text-l pb-4 ">Fehler: {errors}</div>
-      {!wonState ? (
-        <div className="w-3/4 h-3/4 bg-opacity-20 rounded-lg  from-gray-500/40 backdrop-blur-sm  to-gray-600/40 bg-gradient-to-b rounded-s  shadow-md shadow-black grid-cols-4  grid items-center justify-items-center  ">
-          {buttons}
-        </div>
-      ) : (
-        <div>Won</div>
-      )}
+      <div className="w-3/4 h-3/4 bg-opacity-20 rounded-lg  from-gray-500/40 backdrop-blur-sm  to-gray-600/40 bg-gradient-to-b rounded-s  shadow-md shadow-black grid-cols-4  grid items-center justify-items-center  ">
+        {buttons}
+      </div>
     </>
   );
 };
@@ -124,11 +125,14 @@ function initialButtonState(countries: string[]) {
   countries.forEach(() => initialButtonState.push("default"));
   return initialButtonState;
 }
-function won(buttonStates: string[]) {
-  return (
+function checkWonState(
+  buttonStates: string[],
+  setWonState: (state: boolean) => void
+) {
+  const allButtonsHidden =
     buttonStates.filter((state) => state === "hidden").length ===
-    buttonStates.length
-  );
+    buttonStates.length;
+  setWonState(allButtonsHidden);
 }
 function getFlagPath(entry: string, countryData: CountryData) {
   const flag = countryData.countries.filter((value) => {
