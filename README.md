@@ -15,3 +15,7 @@ npm install
 npm run dev
 
 ```
+
+## Screenshot
+
+![Screenshot](screenshot.png)
