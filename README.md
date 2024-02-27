@@ -1,7 +1,8 @@
 # Country Quiz
 
-Coutry Quiz ist eine React Vite App, in der Hauptstädte zu Ländern zugeordnet werden müssen.
+Coutry Quiz ist eine React App, in der Hauptstädte zu Ländern zugeordnet werden müssen.
 Die App wurde zum Üben von React und Tailwind erstellt.
+Flaggen Svg von https://github.com/hampusborgos/country-flags?tab=readme-ov-file
 
 ## Grundidee
 

@@ -7,17 +7,32 @@ export default {
         world: "url('bg-world.jpg')",
       },
       keyframes: {
-        spin: {
-          "0%": {
-            transform: " rotateY(0)",
-            opacity: 1,
+        buttonOut: {
+          "20%": {
+            transform: "scale3d(0.9, 0.9, 0.9)",
           },
-          "100%": { transform: "rotateY(360deg)", opacity: 0 },
+          "50%,55%": {
+            opacity: "1",
+            transform: "scale3d(1.1, 1.1, 1.1)",
+          },
+          to: {
+            opacity: "0",
+            transform: "scale3d(0.4, 0.4, 0.4)",
+          },
+        },
+        fadeIn: {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
         },
       },
       animation: {
-        "button-spin": "spin 0.5s linear both",
+        "button-out": "buttonOut 0.75s linear both",
         "wave-an": "wave 1s linear infinite",
+        "fade-in": "fadeIn 0.5s ease-in-out",
       },
     },
   },

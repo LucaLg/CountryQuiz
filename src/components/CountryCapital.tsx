@@ -15,11 +15,11 @@ type CountryData = {
 };
 const countryData: CountryData = countryJsonData as CountryData;
 const buttonClasses = new Map<string, string>([
-  ["correct", "bg-emerald-600 animate-button-spin  "],
-  ["hidden", "border-none"],
+  ["correct", "bg-emerald-600 animate-button-out  "],
+  ["hidden", "border-none hidden"],
   ["default", "bg-black"],
   ["blue", "bg-sky-500"],
-  ["red", "bg-red-600"],
+  ["red", "bg-red-600 "],
 ]);
 const CountryCapitals = ({
   countries,
@@ -86,7 +86,11 @@ const CountryCapitals = ({
       <div className="relative w-32 h-20">
         <img
           src={`${getFlagPath(entry, countryData)}`}
-          className="absolute inset-0 z-10 w-full h-full object-cover rounded-md  "
+          className={clsx(
+            "absolute inset-0 z-10 w-full h-full object-contain  opacity-0  bg-no-repeat rounded-md",
+            buttonState === "correct" ||
+              (buttonState === "hidden" && "animate-fade-in opacity-100")
+          )}
           alt={`${entry} flag`}
         />
         <button
@@ -95,7 +99,7 @@ const CountryCapitals = ({
           onAnimationEnd={() => setTimeout(() => correctGuess(index), 300)}
           disabled={buttonState !== "default" || isAnimating}
           className={clsx(
-            "relative z-20 w-32 h-20 text-white flex flex-row justify-center items-center rounded-md border border-black drop-shadow-lg",
+            "relative z-20 w-32 h-20 text-white flex flex-row justify-center items-center rounded-md border border-black drop-shadow-lg ease-in-out duration-200",
             buttonClasses.get(buttonState)
           )}
         >
